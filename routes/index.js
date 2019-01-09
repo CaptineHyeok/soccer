@@ -48,13 +48,13 @@ function create_team(num, user_list) {
 }
 
 router.post('/team', function(req, res) {
-    const {user_list} = req.body;
+    const {num, user_list} = req.body;
     console.log(user_list);
 
     //let today = new Date().toISOString().substr(0, 10).replace('T', ' ');
     //let fs_today = fs.readFileSync(__dirname + '/../files/today.txt', 'utf8').split(';');
 
-    let team_arr = create_team(3, user_list);
+    let team_arr = create_team(num, user_list);
     console.log(team_arr);
 
     res.render('team', {
