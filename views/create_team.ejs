@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <% include ./head %>
+</head>
+<body>
+<header>
+    <% include ./header %>
+</header>
+
+<div class="container">
+    <form action="/create_team" method="post">
+        <div class="col-md-6">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Join</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (var i = 0;i < member.length;i++){ %>
+                    <tr>
+                        <td><%= i + 1 %></td>
+                        <td><%= member[i] %></td>
+                        <td><input type="checkbox" name="member" value="<%= member[i] %>"></td>
+                    </tr>
+                <% } %>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="form-signin">
+            <label for="inputTeam" class="sr-only">Team Number</label>
+            <input type="text" name="team_num" class="form-control" placeholder="생성할 팀 수를 입력하시오." required autofocus>
+            <label for="inputMercenary" class="sr-only">Mercenary Number</label>
+            <input type="text" name="mercenary_num" class="form-control" placeholder="추가할 용병 수를 입력하시오.">
+            <button class="btn btn-lg btn-default btn-block" type="submit">Create</button>
+        </div>
+    </form>
+</div>
+
+<footer>
+    <% include ./footer %>
+</footer>
+</body>
+</html>
+

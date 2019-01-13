@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <% include ./head %>
+</head>
+<body>
+<header>
+    <% include ./header %>
+</header>
+
+<div class="container">
+    <form action="/member" method="delete">
+        <div class="col-md-6">
+            <table id="member_table" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>No</th>
+                    <th>Name</th>
+                    <th>Delete</th>
+                </tr>
+                </thead>
+                <tbody>
+                <% for (var i = 0;i < member.length;i++){ %>
+                    <tr>
+                        <td><%= i + 1 %></td>
+                        <td><%= member[i] %></td>
+                        <td><input type="button" id="delete_btn" class="btn btn-sm btn-danger" value="삭제" onclick="delete_member('<%= member[i] %>', this)"/></td>
+                    </tr>
+                <% } %>
+                <tr>
+                    <td>Add</td>
+                    <td><label>
+                            <input type="text" id="new_member" name="new_member">
+                        </label></td>
+                    <td><input type="button" id="add_btn" class="btn btn-sm btn-default" value="추가" onclick="add_member()"/></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </form>
+</div>
+
+
+
+<footer>
+    <% include ./footer %>
+</footer>
+
+<script>
+        function add_member(){
+            let new_member = $("#new_member").val();
+            if (new_member) {
+                $.ajax({
+                    url: 'member',
+                    type: 'post',
+                    data: $('form').serialize(),
+                    success: function() {
+                        let add_tr = $('#member_table > tbody:last > tr:last');
+                        let button = "<input type=\"button\" id=\"delete_btn\" class=\"btn btn-sm btn-danger\" value=\"삭제\" onclick=\"delete_member(\'" + new_member + "\', this)\">";
+
+                        add_tr.remove();
+
+                        $('#member_table > tbody:last').append('<tr><td>Done!</td><td>' + new_member + '</td><td>' + button + '</td></tr>');
+                        $('#member_table > tbody:last').append(add_tr);
+                    }
+                });
+            } else {
+                alert("추가할 회원의 이름을 입력하시오.");
+            }
+        }
+
+        function delete_member(name, cur){
+            if(name){
+               $.ajax({
+                  url: 'member/' + name,
+                  type: 'delete',
+
+                  success: function() {
+                      $(cur).parent().parent().children()[0].innerText = "Done!";
+                      $(cur).parent().parent().children()[2].removeChild(cur);
+                  }
+               });
+           }
+        }
+</script>
+
+</body>
+</html>
+
+

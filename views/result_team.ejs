@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+        <% include ./head %>
+</head>
+<body>
+
+<header>
+    <% include ./header %>
+</header>
+
+<div class="alert alert-info" role="alert">
+    <strong>참고!</strong> 용병은 가나다 순으로 팀에 들어간다.<br>
+    참여한 용병이 김아무개, 남아무개, 신아무개일 때,<br>
+    용병1 = 김아무개, 용병2 = 남아무개, 용병3 = 신아무개
+</div>
+
+<div class="container" style="vertical-align: center;">
+    <table style="margin-left: auto; margin-right: auto">
+        <tr>
+        <% for (var i = 0; i < team_arr.length; i++){ %>
+            <td style="vertical-align: top;">
+                <div class="col-md-6">
+                <table class="table table-striped">
+                    <thead>
+                    <tr>
+                        <th><%=i + 1%> Team</th>
+                    </tr>
+                    </thead>
+                    <tbody style="vertical-align: center;">
+                    <% for (var j = 0;j < team_arr[i].length;j++){ %>
+                        <tr>
+                            <td><%=team_arr[i][j] %></td>
+                        </tr>
+                    <% } %>
+                    </tbody>
+                </table>
+            </div>
+            </td>
+        <% } %>
+        </tr>
+    </table>
+
+</div>
+
+
+
+<footer>
+    <% include ./footer %>
+</footer>
+</body>
+</html>
+
